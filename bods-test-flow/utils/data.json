@@ -1,0 +1,80 @@
+{
+  "version": "v1.1.4",
+  "projects": {
+    "sportshub-sg": {
+      "ssh-support": {
+        "init": "done",
+        "cpt_opt": [{
+          "id": "ssh-support.component-header",
+          "values": []
+        }]
+      }
+    },
+    "piserve": {
+      "piserve-portal": {
+        "init": "done"
+      }
+    },
+    "dentsu-digital": {
+      "chugai": {
+        "init": "done"
+      },
+      "i-pro": {
+        "init": "done"
+      },
+      "dd-site-renewal": {
+        "init": "done"
+      }
+    },
+    "ep": {
+      "ep-storefront": {
+        "init": "done"
+      }
+    },
+    "cheers": {
+      "djaayz": {
+        "init": "done"
+      }
+    },
+    "bonsey-jaden": {
+      "bj-american-standard": {
+        "init": "done"
+      }
+    },
+    "taghk": {
+      "taghk-salesforce": {
+        "init": "done"
+      }
+    },
+    "sapient-dubai": {
+      "mubadala-report": {
+        "init": "done"
+      },
+      "mubadala": {
+        "init": "done"
+      },
+      "spt-db-tecom-support": {
+        "init": "done"
+      }
+    },
+    "topcon": {
+      "topcon": {
+        "init": "done"
+      }
+    },
+    "bods-us": {
+      "bods": {
+        "init": "done",
+        "cpt_opt": [{
+          "id": "bods.001-C001_en",
+          "values": []
+        }]
+      }
+    },
+    "sutrix": {
+      "automation-samples": {
+        "init": "done"
+      }
+    }
+  }
+}

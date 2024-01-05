@@ -1,0 +1,172 @@
+---
+- name: Setup Selenium Grid and Appium Server for mobile app testing
+  hosts: all
+  gather_facts: false
+  become: false
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_ssh_user: "rdespres"
+    interpreter_python: auto_silent
+    android_avd_name: "MyAndroidEmulator"
+    android_emulator_abi: "google_apis/x86_64"
+    android_sdk_version: "30"
+    appium_version: "1.20.2"
+    ios_device_name: "iPhone 12 Pro Max"
+    ios_runtime: "com.apple.CoreSimulator.SimRuntime.iOS-15-2"
+    node_config_file: "nodeconfig.json"
+    xcode_download_path: "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_14.3/Xcode_14.3.xip"
+
+  tasks:
+    - name: Create sudoers file
+      become: true
+      raw: |
+        echo "{{ ansible_ssh_user }} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/{{ ansible_ssh_user }}
+        chmod 0440 /etc/sudoers.d/{{ ansible_ssh_user }}
+
+    - name: Include sudoers file in main configuration
+      become: true
+      raw: |
+        grep -e '^#includedir /private/etc/sudoers.d' /etc/sudoers || echo "#includedir /private/etc/sudoers.d" >> /etc/sudoers
+
+    - name: Check if Homebrew is installed
+      ansible.builtin.raw: |
+        source ~/.bashrc
+        brew --version
+      args:
+        executable: /bin/bash
+      register: brew_check
+      ignore_errors: true
+
+    - name: Install Homebrew
+      ansible.builtin.raw: |
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      when: brew_check.rc != "0"
+      register: brew_installed
+
+    - name: Gather facts
+      ansible.builtin.setup:
+
+    - name: Homebrew path in bashrc
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        regexp: '^export PATH="/opt/homebrew/bin:$PATH"'
+        line: 'export PATH="/opt/homebrew/bin:$PATH"'
+
+    - name: Homebrew path in zshrc
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        regexp: '^export PATH="/opt/homebrew/bin:$PATH"'
+        line: 'export PATH="/opt/homebrew/bin:$PATH"'
+
+    - name: Install cli tools
+      community.general.homebrew:
+        name: "{{ item }}"
+      with_items:
+        - selenium-server
+        - appium
+        - java
+        - nvm
+        - xcodes
+        - aria2
+        - bitwarden-cli
+        - vault
+        - pstree
+        - htop
+
+    - name: Install UI tools
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - homebrew/cask/appium-inspector
+        - homebrew/cask/android-sdk
+
+    # - name: Install missing components for xcrun
+    #   ansible.builtin.command: |
+    #     sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+    #   when: xcode_cli_tools_output|failed
+
+    - name: Set Android SDK path environment variable
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: "export ANDROID_HOME=/usr/local/share/android-sdk"
+        create: true
+        mode: "0644"
+
+    - name: Install Android emulator image
+      ansible.builtin.shell: |
+        echo "no" | avdmanager --verbose create avd --force --name "{{ android_avd_name }}" --abi "{{ android_emulator_abi }}" --package "system-images;android-{{ android_sdk_version }};{{ android_emulator_abi }}"
+      args:
+        executable: /bin/bash
+        creates: "{{ lookup('env', 'ANDROID_AVD_HOME') }}/{{ android_avd_name }}.avd"
+
+    # # Install Appium server
+    # - name: Install Appium server
+    #   command: npm install -g appium@{{ appium_version }}
+    #   args:
+    #     creates: /usr/local/bin/appium
+
+    - name: Create nodeconfig.json file
+      ansible.builtin.copy:
+        dest: "{{ node_config_file }}"
+        content: |
+          {
+            "capabilities": [
+              {
+                "browserName": "Android",
+                "version":"{{ android_sdk_version }}",
+                "maxInstances": 1,
+                "platform":"ANDROID",
+                "deviceName":"{{ android_avd_name }}"
+              },
+              {
+                "browserName": "iOS",
+                "version": "{{ ios_runtime | regex_replace('^com.apple.CoreSimulator.SimRuntime.iOS-(.*)', '\\1') }}"
+                "maxInstances": 1,
+                "platform":"MAC",
+                "deviceName": "{{ ios_device_name }}"
+              }
+            ],
+            "configuration": {
+              "cleanUpCycle": 2000,
+              "timeout": 30000,
+              "maxSession": 1,
+              "hubPort": 4444,
+              "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+              "url": "http://127.0.0.1:4723/wd/hub",
+              "host": "127.0.0.1",
+              "hubHost": "127.0.0.1",
+              "hubProtocol": "http",
+              "port": 4723,
+              "registerCycle": 5000,
+              "register": true,
+              "hub": "http://127.0.0.1:4444/grid/register",
+              "nodeStatusCheckTimeout": 5000,
+              "nodePolling": 5000,
+              "role": "node",
+              "unregisterIfStillDownAfter": 60000,
+              "downPollingLimit": 2,
+              "debug": false,
+              "servlets": [],
+              "withoutServlets": [],
+              "custom": {}
+            }
+          }
+        mode: "0644"
+
+    # - name: Ensure the Android emulator is running
+    #   ansible.builtin.command: "{{ item }}"
+    #   with_items:
+    #     - "emulator -avd {{ android_avd_name }} -noaudio &"
+    #     - "adb wait-for-device"
+    #   become_user: "{{ ansible_user }}"
+
+    # - name: Launch iOS Simulator
+    #   command: "xcrun simctl boot '{{ ios_device_name }}' --runtime '{{ ios_runtime }}'"
+    #   changed_when: false
+    #   failed_when: ios_device.stdout.find('Failed to find a matching device') != -1
+    #   register: ios_device
+
+    # Connect Appium server to Selenium grid
+echo "Connecting Appium server to Selenium grid..."
+appium --webdriveragent-url=http://localhost:4723/wd/hub --nodeconfig /path/to/nodeconfig.json

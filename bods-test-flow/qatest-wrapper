@@ -1,0 +1,125 @@
+#!/usr/bin/env variant
+
+tasks:
+  tests:
+    description: "command related to tests. see tests help"
+    tasks:
+      report:
+        description: "execute allure report generation"
+        script: |
+          allure generate allure-results --clean
+      run:
+        description: "execute tests"
+        inputs:
+        - name: exec_run_client
+          type: string
+          default: "*"
+          description: "the client name"
+        - name: exec_run_project
+          type: string
+          default: "*"
+          description: "the project name"
+        - name: exec_run_testname
+          type: string
+          default: "*"
+          description: "name of the test"
+        - name: exec_run_config
+          type: string
+          default: "wdio.conf.js"
+        script: |
+          jscodeshift -t ./node_modules/@wdio/codemod/async ./test/specs/
+          wdio run {{.exec_run_config}} --spec ./test/specs/{{.exec_run_client}}/{{.exec_run_project}}/record/*/{{.exec_run_testname}}.js
+      deactivate:
+        description: "deactivate one test"
+        inputs:
+        - name: exec_dis_testname
+          type: string
+          default: "none.js"
+          description: "name of the test"
+        script: |
+          if [ "{{.exec_dis_testname}}" == "none.js" ]; then
+            echo need filename argument
+            exit 1 
+          fi
+          set +x
+          for test in $(find ./test/specs -name '{{.exec_dis_testname}}.js'); do
+            mv $test $(echo $test |sed -e 's/.js$//').deactivate.js
+            echo move $test to $(echo $test |sed -e 's/.js$//').deactivate.js
+          done
+          
+      activate:
+        description: "activate one test"
+        inputs:
+        - name: exec_dis_testname
+          type: string
+          default: "none.js"
+          description: "name of the test"
+        script: |
+          if [ "{{.exec_dis_testname}}" == "none.js" ]; then
+            echo need filename argument
+            exit 1 
+          fi
+          for test in $(find ./test/specs -name '{{.exec_dis_testname}}.*.js')
+          do
+            mv $test $(echo $test |sed -e 's/\.[a-z]*\.js$//').js
+            echo move $test to $(echo $test |sed -e 's/\.[a-z]*\.js$//').js
+          done
+          
+      manual:
+        description: "confirm one test to manual test"
+        inputs:
+        - name: exec_dis_testname
+          type: string
+          default: "none.js"
+          description: "name of the test"
+        script: |
+          if [ "{{.exec_dis_testname}}" == "none.js" ]; then
+            echo need filename argument
+            exit 1 
+          fi
+          for test in $(find ./test/specs -name '{{.exec_dis_testname}}.js')
+          do
+            mv $test $(echo $test |sed -e 's/.js$//').manual.js
+            echo move $test to $(echo $test |sed -e 's/.js$//').manual.js
+          done
+          
+      support:
+        description: "request support for a test"
+        inputs:
+        - name: exec_dis_testname
+          type: string
+          default: "none.js"
+          description: "name of the test"
+        script: |
+          if [ "{{.exec_dis_testname}}" == "none.js" ]; then
+            echo need filename argument
+            exit 1 
+          fi
+          for test in $(find ./test/specs -name '{{.exec_dis_testname}}.js')
+          do
+            mv $test $(echo $test |sed -e 's/.js$//').support.js
+            echo move $test to $(echo $test |sed -e 's/.js$//').support.js
+          done
+          
+
+  screenshot:
+    description: "command related screenhots. see screenshot help"
+    tasks:
+      override:
+        description: "override the baseline screenshot"
+        inputs:
+            - name: scr_testname
+              type: string
+              default: "none.js"
+              description: "name of the test"
+        script: |
+          if [ "{{.scr_testname}}" == "none.js" ]; then
+            echo need filename argument
+            exit 1 
+          fi
+          for baseline in $(find ./test/specs -name '{{.scr_testname}}.png')
+          do
+            mv $baseline $baseline.disabled.$(date +%Y%m%d-%H%M%S)
+            echo move $baseline to $baseline.disabled.$(date +%Y%m%d-%H%M%S)
+          done
+          

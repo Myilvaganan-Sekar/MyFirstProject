@@ -1,0 +1,99 @@
+pipeline {
+    agent {
+        node {
+            label 'master'
+        }
+    }
+    options { disableConcurrentBuilds() }
+    stages {
+        stage('Get repo') {
+            steps {
+                cleanWs()
+                checkout([$class: 'GitSCM', branches: [[name: 'main' ]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CleanBeforeCheckout'],[$class: 'SubmoduleOption', parentCredentials: true]], submoduleCfg: [], 
+                userRemoteConfigs: [[ credentialsId: 'bods-test-flow-git-write', url: 'https://github.com/Bods-Inc/bods-functional-tests.git']]])
+                sh '''
+                git submodule update --init --recursive
+                '''
+            }
+        }
+        stage('Get wrapper') {
+            steps {
+                sh '''curl -o - -sL https://github.com/mumoshu/variant/releases/download/v0.38.0/variant_0.38.0_linux_amd64.tar.gz |tar zxvf -
+                chmod +x variant
+                '''
+            }
+        }
+        stage('Run') {
+            parallel{
+                stage('Selenium grid') {
+                    steps {
+                        sh'''
+                        docker compose -f docker-compose.yml up -d --remove-orphans
+                        ''' 
+                    }
+                }
+                stage('Launch wrapper') {
+                    steps {
+                        sh '''
+                        while ! curl -s http://localhost:4444; do sleep 1; done
+                        '''
+                        nodejs('nodejs16.14.0') {
+                            sh'''
+                            export PATH=$PATH:./node_modules/.bin/
+                            npm install
+                            ./variant qatest-wrapper ${qatest}
+                            docker compose down -v
+                            '''
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    post { 
+        always { 
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+            withCredentials([usernamePassword(credentialsId: 'bods-test-flow-git-write', passwordVariable: 'token', usernameVariable: 'user')]) {
+                sh'''
+                git submodule foreach 'git config user.email "jenkins@___group.com"; \
+                    git config user.name "jenkins"; \
+                    url=$(git config --get remote.origin.url); \
+                    url=$(echo $url | cut -c 9-); \
+                    git remote set-url origin https://${user}:${token}@$(echo $url); \
+                    git fetch; \
+                    git pull origin HEAD:main; \
+                    if [ $(git ls-files baseline/ --other --directory --exclude-standard |wc -l) -gt 0 ];then \
+                        git add baseline; \
+                        git commit -m "update baseline by $BUILD_URL"; \
+                        git push origin HEAD:main; \
+                    fi; \
+                    if [ $(git --no-pager diff -- record |wc -l) -gt 0 ];then \
+                        git add record/; \
+                        git commit -m "update record by $BUILD_URL"; \
+                        git push origin HEAD:main; \
+                    fi; \
+                    if [ $(git --no-pager diff -- data.json |wc -l) -gt 0 ];then \
+                        git add data.json; \
+                        git commit -m "update data.json by $BUILD_URL"; \
+                        git push origin HEAD:main; \
+                    fi'
+                git config user.email "jenkins@___group.com"
+                git config user.name "jenkins"
+                url=$(git config --get remote.origin.url)
+                url=$(echo $url | cut -c 9-)
+                git remote set-url origin https://${user}:${token}@$(echo $url)
+                status=$(git submodule status)
+                searchstring="+"
+                rest=${status#*$searchstring}
+                index=$(( ${#status} - ${#rest} - ${#searchstring} ))
+                if [ $index -gt -1 ];then
+                    git add test/
+                    git commit -m "$BUILD_URL"
+                    git push origin HEAD:main
+                fi
+                '''
+            }
+        }
+    }
+}

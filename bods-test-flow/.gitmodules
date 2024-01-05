@@ -1,0 +1,3 @@
+[submodule "bods"]
+	path = test/specs/bods-us/bods
+	url = https://github.com/Bods-Inc/bods-functional-tests.git

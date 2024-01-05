@@ -1,0 +1,7 @@
+{
+  "cid.001": {
+    "maxInstances": 5,
+    "browserName": "chrome",
+    "acceptInsecureCerts": true
+  }
+}
