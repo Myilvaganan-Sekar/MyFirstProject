@@ -1,0 +1,324 @@
+<body class="min-vh-100 d-flex flex-column" style="">
+    <!-- header -->
+    <header class="header w-100 position-fixed d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-expand-lg d-flex w-100">
+            <a class="nav-link p-0" href="/index.html">Home</a>
+            <a href="/index.html" class="navbar-brand">
+              RALPHLAUREN (feature)
+            </a>
+            <div class="shopping-cart-container">
+              <a href="#" id="goto-cart-button">
+                <span id="number-cart-items"></span>
+                <object type="image/svg+xml" data="/assets/images/shopping-bag.svg" class="shopping-bag skrollable skrollable-after"></object>
+                <ul id="cartSummary"></ul>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="sub-header d-flex position-fixed w-100 header-sticky align-items-center headroom headroom--not-top headroom--not-bottom headroom--pinned">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <h5>FEATURED PRODUCTS</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-grow-1">
+      <!-- hero -->
+<div class="swiper-container w-100 swiper-container-fade swiper-container-initialized swiper-container-horizontal">
+  <div class="swiper-wrapper">
+    <!-- 
+      add back "swiper-slide" if we need a slider 
+      currently there is only one image, so no need to slide.
+    -->
+    <div class="">
+      <div class="image" style="background-image:url('assets/images/brands/ralphlauren/background-3.jpg')"></div>
+      <div class="container">
+        <div class="row align-items-end">
+          <div class="col-lg-12 px-3 text-white" data-swiper-parallax-x="-100%">
+            <h1 class="mt-1 font-weight-bold">
+              <span class="fs-3 display-4">BODS Demo</span>
+              <span class="d-block display-3">
+                RALPHLAUREN (feature) 
+              </span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="swiper-footer">
+    <div class="container">
+      <div class="row align-items-center mb-5"></div>
+    </div>
+  </div>
+<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+
+<!-- latest products -->
+<div class="container-fluid">
+  <div class="row border-wrap">
+      
+      
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/camden-wool-crepe-jacket-with-polo-355302b">
+                <img src="/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket_polo.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/camden-wool-crepe-jacket-with-polo-355302b">
+                  Camden Wool Crepe Jacket (with Polo)
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/camden-wool-crepe-jacket-355302">
+                <img src="/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/camden-wool-crepe-jacket-355302">
+                  Camden Wool Crepe Jacket
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/pleated-midi-skirt-509680">
+                <img src="/assets/images/brands/ralphlauren/bottoms/1%20Pleated%20Midi%20Skirt.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/pleated-midi-skirt-509680">
+                  Pleated Midi Skirt
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/straight-leg-satin-pant-638590">
+                <img src="/assets/images/brands/ralphlauren/bottoms/Straight_Leg_Satin_Pant.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/straight-leg-satin-pant-638590">
+                  Straight Leg Satin Pant
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/classic-fit-mesh-530385">
+                <img src="/assets/images/brands/ralphlauren/tops/Classic%20Fit%20Mesh%20Polo%20Shirt%20Navy.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/classic-fit-mesh-530385">
+                  Classic Fit Mesh
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/cotton-crewneck-tee-587146">
+                <img src="/assets/images/brands/ralphlauren/tops/Cotton%20Crewneck%20Tee.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/cotton-crewneck-tee-587146">
+                  Cotton Crewneck Tee
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/the-packable-jacket-621622">
+                <img src="/assets/images/brands/ralphlauren/tops/The%20Packable%20Jacket%20Black.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/the-packable-jacket-621622">
+                  The Packable Jacket
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/cotton-broadcloth-dress-618350">
+                <img src="/assets/images/brands/ralphlauren/tops/Cotton_Broadcloth_Dress.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/cotton-broadcloth-dress-618350">
+                  Cotton Broadcloth Dress
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+
+      
+
+        <div class="col-6 col-md-3">
+          <div class="product">
+            <figure class="product-image text-center">
+              <a href="ralphlauren.apparel/cropped-quilted-jacket-610852">
+                <img src="/assets/images/brands/ralphlauren/tops/Cropped_Quilted_Jacket.png" alt="Image">
+              </a>
+            </figure>
+            <div class="product-meta pb-1 pb-sm-5">
+              <h3 class="product-title text-center">
+                <a href="ralphlauren.apparel/cropped-quilted-jacket-610852">
+                  Cropped Quilted Jacket
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+
+      
+    </div>
+</div>
+
+
+  <div class="modal fade" id="warning-dialog" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="max-width: 500px; margin: 0 auto;">
+        <div class="modal-header">
+          <h5 class="modal-title">WARNING</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="demo-warning">
+            This is a developer's environment that is not open to public. If you are not part of the production team, please visit the production demo website at the following url:<br>
+            <br>
+            <a href="https://ralphlauren.bods.me">https://ralphlauren.bods.me</a>
+            <br>
+            <br>
+            <label for="warning-dialog-hide" style="margin-right: 10px">Don't show again</label><input type="checkbox" name="warning-dialog-hide" id="warning-dialog-hide">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="warning-mini-dialog" tabindex="-1" style="display: none">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="position: fixed; bottom: 10px; right: 10px; max-width: 19vw;">
+        <div class="modal-body" style="padding: 10px 0.875rem;">
+          <h5 class="modal-title" style=" font-size: 2vw; overflow:hidden; text-align: center;">feature</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    window.addEventListener('load', function() {
+      if (!Cookies.get('warning-modal-hide')) {
+        jQuery('#warning-dialog').modal('show');
+      } else {
+        jQuery('#warning-mini-dialog').show();
+      }
+
+      jQuery('#warning-dialog-hide').click(function () {
+        if (this.checked) {
+          Cookies.set('warning-modal-hide', "true");
+        } else {
+          Cookies.remove('warning-modal-hide');
+        }
+      });
+    });
+
+
+  </script>
+
+
+    </div>
+
+    
+    <script type="text/javascript">
+      var catalog = JSON.parse('[{"title":"Camden Wool Crepe Jacket (with Polo)","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket_polo.png","externalProductId":"355302b","description":"Navy","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket_polo.png","externalColorId":"Navy","spotColor":"#1A2035"}]},{"title":"Camden Wool Crepe Jacket","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket.png","externalProductId":"355302","description":"Navy","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Camden_wool_crepe_jacket.png","externalColorId":"Navy","spotColor":"#1A2035"}]},{"title":"Pleated Midi Skirt","feature":true,"img":"/assets/images/brands/ralphlauren/bottoms/1%20Pleated%20Midi%20Skirt.png","externalProductId":"509680","description":"Holiday Navy","colors":[{"img":"/assets/images/brands/ralphlauren/bottoms/1%20Pleated%20Midi%20Skirt.png","externalColorId":"Holiday Navy","spotColor":"#1A2035"}]},{"title":"Straight Leg Satin Pant","feature":true,"img":"/assets/images/brands/ralphlauren/bottoms/Straight_Leg_Satin_Pant.png","externalProductId":"638590","description":"Clubhouse Cream","colors":[{"img":"/assets/images/brands/ralphlauren/bottoms/Straight_Leg_Satin_Pant.png","externalColorId":"Clubhouse Cream","spotColor":"#FFFFFF"}]},{"title":"Classic Fit Mesh","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Classic%20Fit%20Mesh%20Polo%20Shirt%20Navy.png","description":"Polo Navy","externalProductId":"530385","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Classic%20Fit%20Mesh%20Polo%20Shirt%20Navy.png","externalColorId":"Newport Navy/Red","spotColor":"#1A2035"},{"img":"/assets/images/brands/ralphlauren/tops/2%20Classic%20Fit%20Mesh%20Polo%20Shirt%20Blue.jpg","externalColorId":"Harbor Island Blue","spotColor":"#8BAAD8"},{"img":"/assets/images/brands/ralphlauren/tops/3%20Classic%20Fit%20Mesh%20Polo%20Shirt%20Grey.jpg","externalColorId":"Andover Heather","spotColor":"#918E8B"}]},{"title":"Cotton Crewneck Tee","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Cotton%20Crewneck%20Tee.png","externalProductId":"587146","description":"In cotton","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Cotton%20Crewneck%20Tee.png","externalColorId":"Polo Black","spotColor":"#000000"}]},{"title":"The Packable Jacket","feature":true,"img":"/assets/images/brands/ralphlauren/tops/The%20Packable%20Jacket%20Black.png","externalProductId":"621622","description":"in Black","colors":[{"img":"/assets/images/brands/ralphlauren/tops/The%20Packable%20Jacket%20Black.png","externalColorId":"Polo Black","spotColor":"#000000"},{"img":"/assets/images/brands/ralphlauren/tops/8%20The%20Packable%20Jacket%20Navy.jpg","externalColorId":"Aviator Navy","spotColor":"#1A2035"},{"img":"/assets/images/brands/ralphlauren/tops/7%20The%20Packable%20Jacket%20Grey.jpg","externalColorId":"Grey","spotColor":"#918E8B"}]},{"title":"Cotton Broadcloth Dress","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Cotton_Broadcloth_Dress.png","externalProductId":"618350","description":"in Newport Navy","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Cotton_Broadcloth_Dress.png","externalColorId":"Newport Navy","spotColor":"#001A4D"}]},{"title":"Cropped Quilted Jacket","feature":true,"img":"/assets/images/brands/ralphlauren/tops/Cropped_Quilted_Jacket.png","externalProductId":"610852","description":"in Chocolate Brown","colors":[{"img":"/assets/images/brands/ralphlauren/tops/Cropped_Quilted_Jacket.png","externalColorId":"Chocolate Brown","spotColor":"#7B3F00"}]},{"title":"Celia Calfskin Pump","feature":false,"img":"/assets/images/brands/ralphlauren/shoes/Celia%20Calfskin%20Pump%20Black.png","externalProductId":"486601","description":"in Black","colors":[{"img":"/assets/images/brands/ralphlauren/shoes/Celia%20Calfskin%20Pump%20Black.png","externalColorId":"Black","spotColor":""},{"img":"/assets/images/brands/ralphlauren/shoes/Celia%20Calfskin%20Pump%20Gold.png","externalColorId":"RL Gold","spotColor":""},{"img":"/assets/images/brands/ralphlauren/shoes/Celia%20Calfskin%20Pump%20Navy.png","externalColorId":"Navy","spotColor":""}]},{"title":"Leather Medium Bellport Tote (Cuoio)","feature":false,"img":"/assets/images/brands/ralphlauren/bags/1%20Leather%20Medium%20Bellport%20Tote%20Cuoio.png","externalProductId":"648960","description":"in Cuoio","colors":[{"img":"/assets/images/brands/ralphlauren/bags/1%20Leather%20Medium%20Bellport%20Tote%20Cuoio.png","externalColorId":"Cuoio","spotColor":""}]},{"title":"Leather Medium Bellport Tote","feature":false,"img":"/assets/images/brands/ralphlauren/bags/2%20Leather%20Medium%20Bellport%20Tote%20Natural.png","externalProductId":"525388","description":"in Natural","colors":[{"img":"/assets/images/brands/ralphlauren/bags/3%20Leather%20Medium%20Bellport%20Tote%20Scarlet.png","externalColorId":"Scarlet","spotColor":""},{"img":"/assets/images/brands/ralphlauren/bags/2%20Leather%20Medium%20Bellport%20Tote%20Natural.png","externalColorId":"Natural","spotColor":""}]},{"title":"Small Steel Black Finish","feature":false,"img":"/assets/images/brands/ralphlauren/bags/4%20Small%20Steel%20Black%20Finish.png","externalProductId":"582660","description":"in Black","colors":[{"img":"/assets/images/brands/ralphlauren/bags/4%20Small%20Steel%20Black%20Finish.png","externalColorId":"Black Dial","spotColor":""}]},{"title":"Calfskin Mini RL50 Handbag","feature":false,"img":"/assets/images/brands/ralphlauren/bags/MiniRL50.png","externalProductId":"644907","description":"in Black","colors":[{"img":"/assets/images/brands/ralphlauren/bags/MiniRL50.png","externalColorId":"Black","spotColor":""}]},{"title":"Welington Enamel Bracelet","feature":false,"img":"/assets/images/brands/ralphlauren/bags/Bracelet_Enamel.png","externalProductId":"612580","description":"in Green/Grey","colors":[{"img":"/assets/images/brands/ralphlauren/bags/Bracelet_Enamel.png","externalColorId":"Green/Grey","spotColor":""},{"img":"/assets/images/brands/ralphlauren/bags/Bracelet_Enamel_navy.png","externalColorId":"Navy","spotColor":""},{"img":"/assets/images/brands/ralphlauren/bags/Bracelet_Enamel_orange.png","externalColorId":"Orange","spotColor":""}]},{"title":"Courtster Sneaker","feature":false,"img":"/assets/images/brands/ralphlauren/shoes/CourtsterSneaker_Preview.png","externalProductId":"INT_RL_SNKR","description":"in White","colors":[{"img":"/assets/images/brands/ralphlauren/shoes/CourtsterSneaker_Preview.png","externalColorId":"White","spotColor":""}]}]');
+    </script>
+    <script src="/assets/js/vendor.min.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/demo-cart.js"></script>
+  
+
+</body>
